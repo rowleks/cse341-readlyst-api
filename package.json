@@ -9,6 +9,7 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "swagger": "node swagger.js",
+    "seed": "node seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
