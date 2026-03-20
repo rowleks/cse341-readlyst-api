@@ -1,11 +1,15 @@
 const Users = require('../model/users')
 
 const getAllUsers = async (_, res) => {
+  // #swagger.tags = ['Users']
+  // #swagger.summary = 'Get all users'
   const users = await Users.find({})
   res.json(users)
 }
 
 const getUserById = async (req, res) => {
+  // #swagger.tags = ['Users']
+  // #swagger.summary = 'Get user by ID'
   const user = await Users.findById(req.params.id)
   if (!user) {
     return userNotFound(res)
@@ -14,6 +18,8 @@ const getUserById = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
+  // #swagger.tags = ['Users']
+  // #swagger.summary = 'Delete user'
   const deletedUser = await Users.findByIdAndDelete(req.params.id)
   if (!deletedUser) {
     return userNotFound(res)

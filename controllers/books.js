@@ -1,11 +1,15 @@
 const Book = require('../model/books')
 
 const getAllBooks = async (_, res) => {
+  // #swagger.tags = ['Books']
+  // #swagger.summary = 'Get all books'
   const books = await Book.find({})
   res.json(books)
 }
 
 const getBookById = async (req, res) => {
+  // #swagger.tags = ['Books']
+  // #swagger.summary = 'Get book by ID'
   const book = await Book.findById(req.params.id)
   if (!book) {
     return bookNotFound(res)
@@ -14,6 +18,20 @@ const getBookById = async (req, res) => {
 }
 
 const addBook = async (req, res) => {
+  // #swagger.tags = ['Books']
+  // #swagger.summary = 'Add a new book'
+  /* #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Book data',
+      schema: {
+        $title: 'Book Title',
+        $author: 'Author Name',
+        publishedYear: 2023,
+        genres: ['Genre'],
+        description: 'Book Description',
+        coverImageUrl: 'http://example.com/image.jpg'
+      }
+  } */
   const { title, author, publishedYear, genres, description, coverImageUrl } =
     req.body
 
@@ -31,13 +49,27 @@ const addBook = async (req, res) => {
 }
 
 const updateBook = async (req, res) => {
+  // #swagger.tags = ['Books']
+  // #swagger.summary = 'Update a book'
+  /* #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Book data',
+      schema: {
+        $title: 'Book Title',
+        $author: 'Author Name',
+        publishedYear: 2023,
+        genres: ['Genre'],
+        description: 'Book Description',
+        coverImageUrl: 'http://example.com/image.jpg'
+      }
+  } */
   const { title, author, publishedYear, genres, description, coverImageUrl } =
     req.body
 
   const updatedBook = await Book.findByIdAndUpdate(
     req.params.id,
     { title, author, publishedYear, genres, description, coverImageUrl },
-    { new: true }
+    { returnDocument: 'after' }
   )
 
   if (!updatedBook) {
@@ -47,6 +79,8 @@ const updateBook = async (req, res) => {
 }
 
 const deleteBook = async (req, res) => {
+  // #swagger.tags = ['Books']
+  // #swagger.summary = 'Delete a book'
   const deletedBook = await Book.findByIdAndDelete(req.params.id)
   if (!deletedBook) {
     return bookNotFound(res)
