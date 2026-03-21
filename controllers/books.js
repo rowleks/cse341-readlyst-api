@@ -55,8 +55,8 @@ const updateBook = async (req, res) => {
       in: 'body',
       description: 'Book data',
       schema: {
-        $title: 'Book Title',
-        $author: 'Author Name',
+        title: 'Book Title',
+        author: 'Author Name',
         publishedYear: 2023,
         genres: ['Genre'],
         description: 'Book Description',

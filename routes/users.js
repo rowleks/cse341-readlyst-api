@@ -6,12 +6,15 @@ const {
   createUser,
   updateUser,
 } = require('../controllers/users')
-const validateUser = require('../middlewares/userValidator')
+const {
+  validateCreateUser,
+  validateUpdateUser,
+} = require('../middlewares/userValidator')
 
 router.get('/', getAllUsers)
 router.get('/:id', getUserById)
-router.post('/', validateUser, createUser)
-router.put('/:id', validateUser, updateUser)
+router.post('/', validateCreateUser, createUser)
+router.put('/:id', validateUpdateUser, updateUser)
 router.delete('/:id', deleteUser)
 
 module.exports = router

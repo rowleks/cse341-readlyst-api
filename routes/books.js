@@ -6,12 +6,15 @@ const {
   updateBook,
   deleteBook,
 } = require('../controllers/books')
-const validateBook = require('../middlewares/bookValidator')
+const {
+  validateCreateBook,
+  validateUpdateBook,
+} = require('../middlewares/bookValidator')
 
 router.get('/', getAllBooks)
 router.get('/:id', getBookById)
-router.post('/', validateBook, addBook)
-router.put('/:id', validateBook, updateBook)
+router.post('/', validateCreateBook, addBook)
+router.put('/:id', validateUpdateBook, updateBook)
 router.delete('/:id', deleteBook)
 
 module.exports = router

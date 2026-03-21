@@ -1,6 +1,14 @@
 const { body, validationResult } = require('express-validator')
 
-const validateUser = [
+const validate = (req, res, next) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() })
+  }
+  next()
+}
+
+const validateCreateUser = [
   body('name')
     .notEmpty()
     .withMessage('Name is required')
@@ -16,24 +24,32 @@ const validateUser = [
     .withMessage('Email is required')
     .isEmail()
     .withMessage('Must be a valid email address'),
-  body('password').custom((value, { req }) => {
-    if (req.method === 'POST' && (!value || value.length < 8)) {
-      throw new Error(
-        'Password is required and must be at least 8 characters long'
-      )
-    }
-    if (value && value.length < 8) {
-      throw new Error('Password must be at least 8 characters long')
-    }
-    return true
-  }),
-  (req, res, next) => {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
-    }
-    next()
-  },
+  body('password')
+    .notEmpty()
+    .withMessage('Password is required')
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 characters long'),
+  validate,
 ]
 
-module.exports = validateUser
+const validateUpdateUser = [
+  body('name')
+    .optional()
+    .isLength({ min: 3, max: 50 })
+    .withMessage('Name must be between 3 and 50 characters'),
+  body('username')
+    .optional()
+    .isLength({ min: 3, max: 30 })
+    .withMessage('Username must be between 3 and 30 characters'),
+  body('email')
+    .optional()
+    .isEmail()
+    .withMessage('Must be a valid email address'),
+  body('password')
+    .optional()
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 characters long'),
+  validate,
+]
+
+module.exports = { validateCreateUser, validateUpdateUser }
