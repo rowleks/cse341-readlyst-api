@@ -1,14 +1,14 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "API docs",
+    "title": "Readlyst API docs",
     "description": "API documentation for the endpoints",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cse341-readlyst-api.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {

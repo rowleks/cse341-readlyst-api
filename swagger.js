@@ -2,11 +2,11 @@ const swaggerAutogen = require('swagger-autogen')()
 
 const doc = {
   info: {
-    title: 'API docs',
+    title: 'Readlyst API docs',
     description: 'API documentation for the endpoints',
   },
-  host: 'localhost:3000',
-  schemes: ['http'],
+  host: 'cse341-readlyst-api.onrender.com',
+  schemes: ['https'],
 }
 
 const outputFile = './docs/swagger-output.json'
