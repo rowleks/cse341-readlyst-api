@@ -1,16 +1,16 @@
-const Users = require('../model/users')
+const userService = require('../services/userService')
 
 const getAllUsers = async (_, res) => {
   // #swagger.tags = ['Users']
   // #swagger.summary = 'Get all users'
-  const users = await Users.find({})
+  const users = await userService.getAllUsers()
   res.json(users)
 }
 
 const getUserById = async (req, res) => {
   // #swagger.tags = ['Users']
   // #swagger.summary = 'Get user by ID'
-  const user = await Users.findById(req.params.id)
+  const user = await userService.getUserById(req.params.id)
   if (!user) {
     return userNotFound(res)
   }
@@ -30,14 +30,7 @@ const createUser = async (req, res) => {
         $password: 'secret123'
       }
   } */
-  const { name, username, email, password } = req.body
-  const user = new Users({
-    name,
-    username,
-    email,
-    passwordHash: password,
-  })
-  const savedUser = await user.save()
+  const savedUser = await userService.createUser(req.body)
   res.status(201).json(savedUser)
 }
 
@@ -54,22 +47,17 @@ const updateUser = async (req, res) => {
         password: 'secret123'
       }
   } */
-  const { name, username, email, password } = req.body
-  const user = await Users.findByIdAndUpdate(
-    req.params.id,
-    { name, username, email, passwordHash: password },
-    { returnDocument: 'after' }
-  )
-  if (!user) {
+  const updatedUser = await userService.updateUser(req.params.id, req.body)
+  if (!updatedUser) {
     return userNotFound(res)
   }
-  res.json(user)
+  res.json(updatedUser)
 }
 
 const deleteUser = async (req, res) => {
   // #swagger.tags = ['Users']
   // #swagger.summary = 'Delete user'
-  const deletedUser = await Users.findByIdAndDelete(req.params.id)
+  const deletedUser = await userService.deleteUser(req.params.id)
   if (!deletedUser) {
     return userNotFound(res)
   }

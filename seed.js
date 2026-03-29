@@ -1,5 +1,5 @@
-const User = require('./model/users')
-const Book = require('./model/books')
+const User = require('./model/userModel')
+const Book = require('./model/bookModel')
 const { connect } = require('./database')
 require('dotenv').config()
 

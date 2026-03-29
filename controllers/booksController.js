@@ -1,16 +1,16 @@
-const Book = require('../model/books')
+const bookService = require('../services/bookService')
 
 const getAllBooks = async (_, res) => {
   // #swagger.tags = ['Books']
   // #swagger.summary = 'Get all books'
-  const books = await Book.find({})
+  const books = await bookService.getAllBooks()
   res.json(books)
 }
 
 const getBookById = async (req, res) => {
   // #swagger.tags = ['Books']
   // #swagger.summary = 'Get book by ID'
-  const book = await Book.findById(req.params.id)
+  const book = await bookService.getBookById(req.params.id)
   if (!book) {
     return bookNotFound(res)
   }
@@ -32,19 +32,7 @@ const addBook = async (req, res) => {
         coverImageUrl: 'http://example.com/image.jpg'
       }
   } */
-  const { title, author, publishedYear, genres, description, coverImageUrl } =
-    req.body
-
-  const newBook = new Book({
-    title,
-    author,
-    publishedYear,
-    genres,
-    description,
-    coverImageUrl,
-  })
-
-  const savedBook = await newBook.save()
+  const savedBook = await bookService.addBook(req.body)
   res.status(201).json(savedBook)
 }
 
@@ -63,14 +51,7 @@ const updateBook = async (req, res) => {
         coverImageUrl: 'http://example.com/image.jpg'
       }
   } */
-  const { title, author, publishedYear, genres, description, coverImageUrl } =
-    req.body
-
-  const updatedBook = await Book.findByIdAndUpdate(
-    req.params.id,
-    { title, author, publishedYear, genres, description, coverImageUrl },
-    { returnDocument: 'after' }
-  )
+  const updatedBook = await bookService.updateBook(req.params.id, req.body)
 
   if (!updatedBook) {
     return bookNotFound(res)
@@ -81,7 +62,7 @@ const updateBook = async (req, res) => {
 const deleteBook = async (req, res) => {
   // #swagger.tags = ['Books']
   // #swagger.summary = 'Delete a book'
-  const deletedBook = await Book.findByIdAndDelete(req.params.id)
+  const deletedBook = await bookService.deleteBook(req.params.id)
   if (!deletedBook) {
     return bookNotFound(res)
   }

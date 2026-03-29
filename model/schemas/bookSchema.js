@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const toJsonPlugin = require('../utils/toJsonPlugin')
+const toJsonPlugin = require('../../utils/toJsonPlugin')
 
 const bookSchema = new mongoose.Schema(
   {
@@ -25,6 +25,4 @@ bookSchema.pre('findByIdAndDelete', async function (next) {
   next()
 })
 
-const Book = mongoose.model('Book', bookSchema)
-
-module.exports = Book
+module.exports = bookSchema

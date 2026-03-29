@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const toJsonPlugin = require('../utils/toJsonPlugin')
+const toJsonPlugin = require('../../utils/toJsonPlugin')
 
 const userSchema = new mongoose.Schema(
   {
@@ -24,6 +24,4 @@ userSchema.pre('findByIdAndDelete', async function (next) {
   next()
 })
 
-const User = mongoose.model('User', userSchema)
-
-module.exports = User
+module.exports = userSchema

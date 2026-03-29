@@ -1,3 +1,5 @@
+//index.js
+
 const { initServer } = require('./server')
 
 /* eslint-disable no-console */

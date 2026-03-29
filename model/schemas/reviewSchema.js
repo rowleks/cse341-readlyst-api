@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const toJsonPlugin = require('../utils/toJsonPlugin')
+const toJsonPlugin = require('../../utils/toJsonPlugin')
 
-const readlistSchema = new mongoose.Schema(
+const reviewSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -13,25 +13,21 @@ const readlistSchema = new mongoose.Schema(
       ref: 'Book',
       required: true,
     },
-    status: {
-      type: String,
-      enum: ['wishlist', 'reading', 'completed', 'dropped'],
-      default: 'wishlist',
-    },
-    progress: {
+    rating: {
       type: Number,
-      default: 0,
+      min: 1,
+      max: 5,
+      required: true,
     },
-    startedAt: Date,
-    completedAt: Date,
+    comment: String,
   },
   { timestamps: true }
 )
 
-readlistSchema.plugin(toJsonPlugin)
+reviewSchema.plugin(toJsonPlugin)
 
 // Validate that user exists before saving
-readlistSchema.pre('save', async function (next) {
+reviewSchema.pre('save', async function (next) {
   const User = mongoose.model('User')
   const user = await User.findById(this.user)
   if (!user) {
@@ -41,7 +37,7 @@ readlistSchema.pre('save', async function (next) {
 })
 
 // Validate that book exists before saving
-readlistSchema.pre('save', async function (next) {
+reviewSchema.pre('save', async function (next) {
   const Book = mongoose.model('Book')
   const book = await Book.findById(this.book)
   if (!book) {
@@ -50,6 +46,4 @@ readlistSchema.pre('save', async function (next) {
   next()
 })
 
-const Readlist = mongoose.model('Readlist', readlistSchema)
-
-module.exports = Readlist
+module.exports = reviewSchema

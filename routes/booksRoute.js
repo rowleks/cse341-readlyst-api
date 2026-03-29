@@ -1,3 +1,5 @@
+//bookRoute.js
+
 const router = require('express').Router()
 const {
   getAllBooks,
@@ -5,7 +7,7 @@ const {
   addBook,
   updateBook,
   deleteBook,
-} = require('../controllers/books')
+} = require('../controllers/booksController')
 const {
   validateCreateBook,
   validateUpdateBook,
