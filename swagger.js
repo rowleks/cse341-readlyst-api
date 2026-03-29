@@ -36,6 +36,22 @@ const doc = {
       email: 'john@example.com',
       password: 'secret123',
     },
+    Readlist: {
+      $user: 'User ID (ObjectId)',
+      $book: 'Book ID (ObjectId)',
+      status: 'wishlist',
+      progress: 0,
+      startedAt: '2023-01-01T00:00:00.000Z',
+      completedAt: '2023-01-01T00:00:00.000Z',
+    },
+    UpdateReadlist: {
+      user: 'User ID (ObjectId)',
+      book: 'Book ID (ObjectId)',
+      status: 'reading',
+      progress: 50,
+      startedAt: '2023-01-01T00:00:00.000Z',
+      completedAt: '2023-01-01T00:00:00.000Z',
+    },
   },
 }
 

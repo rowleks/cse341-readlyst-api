@@ -7,11 +7,19 @@ const readlistSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
+      validate: {
+        validator: async v => await mongoose.models.User.exists({ _id: v }),
+        message: 'User does not exist',
+      },
     },
     book: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Book',
       required: true,
+      validate: {
+        validator: async v => await mongoose.models.Book.exists({ _id: v }),
+        message: 'Book does not exist',
+      },
     },
     status: {
       type: String,
@@ -29,25 +37,5 @@ const readlistSchema = new mongoose.Schema(
 )
 
 readlistSchema.plugin(toJsonPlugin)
-
-// Validate that user exists before saving
-readlistSchema.pre('save', async function (next) {
-  const User = mongoose.model('User')
-  const user = await User.findById(this.user)
-  if (!user) {
-    throw new Error('User does not exist')
-  }
-  next()
-})
-
-// Validate that book exists before saving
-readlistSchema.pre('save', async function (next) {
-  const Book = mongoose.model('Book')
-  const book = await Book.findById(this.book)
-  if (!book) {
-    throw new Error('Book does not exist')
-  }
-  next()
-})
 
 module.exports = readlistSchema

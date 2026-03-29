@@ -8,7 +8,10 @@ const findAll = () => Readlist.find({})
 const findById = id => Readlist.findById(id)
 const create = readlistData => new Readlist(readlistData).save()
 const updateById = (id, readlistData) =>
-  Readlist.findByIdAndUpdate(id, readlistData, { returnDocument: 'after' })
+  Readlist.findByIdAndUpdate(id, readlistData, {
+    returnDocument: 'after',
+    runValidators: true,
+  })
 const deleteById = id => Readlist.findByIdAndDelete(id)
 const deleteMany = filter => Readlist.deleteMany(filter)
 

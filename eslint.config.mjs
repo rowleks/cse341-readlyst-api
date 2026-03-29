@@ -31,7 +31,6 @@ export default [
       'no-eval': 'error',
       'no-implied-eval': 'error',
       'no-new-func': 'error',
-      'no-return-await': 'error',
       'require-await': 'error',
       'arrow-body-style': ['error', 'as-needed'],
       'no-console': 'warn',
