@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const rootRouter = require('./routes')
 const { connect } = require('./database')
+const { morganMiddleware } = require('./middlewares/morganMiddleware')
 const {
   unknownEndpoint,
   errorHandler,
@@ -19,6 +20,7 @@ const port = process.env.PORT || 3030
 let server
 
 app.use(cors())
+app.use(morganMiddleware)
 app.use(express.json())
 
 app.use('/', rootRouter)
