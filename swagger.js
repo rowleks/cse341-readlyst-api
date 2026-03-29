@@ -52,6 +52,18 @@ const doc = {
       startedAt: '2023-01-01T00:00:00.000Z',
       completedAt: '2023-01-01T00:00:00.000Z',
     },
+    Review: {
+      $user: 'User ID (ObjectId)',
+      $book: 'Book ID (ObjectId)',
+      $rating: 5,
+      comment: 'This was an amazing read!',
+    },
+    UpdateReview: {
+      user: 'User ID (ObjectId)',
+      book: 'Book ID (ObjectId)',
+      rating: 4,
+      comment: 'Actually, it was a 4/5 for me.',
+    },
   },
 }
 

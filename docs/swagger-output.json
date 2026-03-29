@@ -50,46 +50,13 @@
             "in": "body",
             "description": "Book data",
             "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "example": "Book Title"
-                },
-                "author": {
-                  "type": "string",
-                  "example": "Author Name"
-                },
-                "publishedYear": {
-                  "type": "number",
-                  "example": 2023
-                },
-                "genres": {
-                  "type": "array",
-                  "example": ["Genre"],
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "description": {
-                  "type": "string",
-                  "example": "Book Description"
-                },
-                "coverImageUrl": {
-                  "type": "string",
-                  "example": "http://example.com/image.jpg"
-                }
-              },
-              "required": ["title", "author"]
+              "$ref": "#/definitions/Book"
             }
           }
         ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       }
@@ -129,46 +96,13 @@
             "in": "body",
             "description": "Book data",
             "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "example": "Book Title"
-                },
-                "author": {
-                  "type": "string",
-                  "example": "Author Name"
-                },
-                "publishedYear": {
-                  "type": "number",
-                  "example": 2023
-                },
-                "genres": {
-                  "type": "array",
-                  "example": ["Genre"],
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "description": {
-                  "type": "string",
-                  "example": "Book Description"
-                },
-                "coverImageUrl": {
-                  "type": "string",
-                  "example": "http://example.com/image.jpg"
-                }
-              },
-              "required": ["title", "author"]
+              "$ref": "#/definitions/UpdateBook"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       },
@@ -238,9 +172,6 @@
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       }
@@ -305,9 +236,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       },
@@ -327,6 +255,410 @@
           "204": {
             "description": "No Content"
           }
+        }
+      }
+    },
+    "/readlist/": {
+      "get": {
+        "tags": ["Readlist"],
+        "summary": "Get all readlist entries",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Readlist"],
+        "summary": "Add a book to a user\\'s readlist",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Readlist entry data",
+            "schema": {
+              "$ref": "#/definitions/Readlist"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/readlist/{id}": {
+      "get": {
+        "tags": ["Readlist"],
+        "summary": "Get readlist entry by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Readlist"],
+        "summary": "Update a readlist entry",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated readlist data",
+            "schema": {
+              "$ref": "#/definitions/UpdateReadlist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Readlist"],
+        "summary": "Remove a book from a readlist",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/reviews/": {
+      "get": {
+        "tags": ["Reviews"],
+        "summary": "Get all reviews",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Reviews"],
+        "summary": "Create a new review",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Review data",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/reviews/{id}": {
+      "get": {
+        "tags": ["Reviews"],
+        "summary": "Get review by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Reviews"],
+        "summary": "Update a review",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated review data",
+            "schema": {
+              "$ref": "#/definitions/UpdateReview"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Reviews"],
+        "summary": "Delete a review",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Book Title"
+        },
+        "author": {
+          "type": "string",
+          "example": "Author Name"
+        },
+        "publishedYear": {
+          "type": "number",
+          "example": 2023
+        },
+        "genres": {
+          "type": "array",
+          "example": ["Genre"],
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string",
+          "example": "Book Description"
+        },
+        "coverImageUrl": {
+          "type": "string",
+          "example": "http://example.com/image.jpg"
+        }
+      },
+      "required": ["title", "author"]
+    },
+    "UpdateBook": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Book Title"
+        },
+        "author": {
+          "type": "string",
+          "example": "Author Name"
+        },
+        "publishedYear": {
+          "type": "number",
+          "example": 2023
+        },
+        "genres": {
+          "type": "array",
+          "example": ["Genre"],
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string",
+          "example": "Book Description"
+        },
+        "coverImageUrl": {
+          "type": "string",
+          "example": "http://example.com/image.jpg"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "username": {
+          "type": "string",
+          "example": "johndoe"
+        },
+        "email": {
+          "type": "string",
+          "example": "john@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "secret123"
+        }
+      },
+      "required": ["name", "username", "email", "password"]
+    },
+    "UpdateUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "username": {
+          "type": "string",
+          "example": "johndoe"
+        },
+        "email": {
+          "type": "string",
+          "example": "john@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "secret123"
+        }
+      }
+    },
+    "Readlist": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "example": "User ID (ObjectId)"
+        },
+        "book": {
+          "type": "string",
+          "example": "Book ID (ObjectId)"
+        },
+        "status": {
+          "type": "string",
+          "example": "wishlist"
+        },
+        "progress": {
+          "type": "number",
+          "example": 0
+        },
+        "startedAt": {
+          "type": "string",
+          "example": "2023-01-01T00:00:00.000Z"
+        },
+        "completedAt": {
+          "type": "string",
+          "example": "2023-01-01T00:00:00.000Z"
+        }
+      },
+      "required": ["user", "book"]
+    },
+    "UpdateReadlist": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "example": "User ID (ObjectId)"
+        },
+        "book": {
+          "type": "string",
+          "example": "Book ID (ObjectId)"
+        },
+        "status": {
+          "type": "string",
+          "example": "reading"
+        },
+        "progress": {
+          "type": "number",
+          "example": 50
+        },
+        "startedAt": {
+          "type": "string",
+          "example": "2023-01-01T00:00:00.000Z"
+        },
+        "completedAt": {
+          "type": "string",
+          "example": "2023-01-01T00:00:00.000Z"
+        }
+      }
+    },
+    "Review": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "example": "User ID (ObjectId)"
+        },
+        "book": {
+          "type": "string",
+          "example": "Book ID (ObjectId)"
+        },
+        "rating": {
+          "type": "number",
+          "example": 5
+        },
+        "comment": {
+          "type": "string",
+          "example": "This was an amazing read!"
+        }
+      },
+      "required": ["user", "book", "rating"]
+    },
+    "UpdateReview": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "example": "User ID (ObjectId)"
+        },
+        "book": {
+          "type": "string",
+          "example": "Book ID (ObjectId)"
+        },
+        "rating": {
+          "type": "number",
+          "example": 4
+        },
+        "comment": {
+          "type": "string",
+          "example": "Actually, it was a 4/5 for me."
         }
       }
     }
