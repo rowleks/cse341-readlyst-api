@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const toJsonPlugin = require('../utils/toJsonPlugin')
 
 const bookSchema = new mongoose.Schema(
   {
@@ -12,12 +13,16 @@ const bookSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-bookSchema.set('toJSON', {
-  transform: (_, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  },
+bookSchema.plugin(toJsonPlugin)
+
+// Cascade delete: Remove all readlist entries and reviews when book is deleted
+bookSchema.pre('findByIdAndDelete', async function (next) {
+  const bookId = this._conditions._id
+  const Readlist = mongoose.model('Readlist')
+  const Review = mongoose.model('Review')
+  await Readlist.deleteMany({ book: bookId })
+  await Review.deleteMany({ book: bookId })
+  next()
 })
 
 const Book = mongoose.model('Book', bookSchema)

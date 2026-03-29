@@ -7,9 +7,7 @@
   },
   "host": "cse341-readlyst-api.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/": {
       "get": {
@@ -33,9 +31,7 @@
     },
     "/books/": {
       "get": {
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "summary": "Get all books",
         "description": "",
         "responses": {
@@ -45,9 +41,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "summary": "Add a new book",
         "description": "",
         "parameters": [
@@ -72,9 +66,7 @@
                 },
                 "genres": {
                   "type": "array",
-                  "example": [
-                    "Genre"
-                  ],
+                  "example": ["Genre"],
                   "items": {
                     "type": "string"
                   }
@@ -88,10 +80,7 @@
                   "example": "http://example.com/image.jpg"
                 }
               },
-              "required": [
-                "title",
-                "author"
-              ]
+              "required": ["title", "author"]
             }
           }
         ],
@@ -107,9 +96,7 @@
     },
     "/books/{id}": {
       "get": {
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "summary": "Get book by ID",
         "description": "",
         "parameters": [
@@ -127,9 +114,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "summary": "Update a book",
         "description": "",
         "parameters": [
@@ -160,9 +145,7 @@
                 },
                 "genres": {
                   "type": "array",
-                  "example": [
-                    "Genre"
-                  ],
+                  "example": ["Genre"],
                   "items": {
                     "type": "string"
                   }
@@ -176,10 +159,7 @@
                   "example": "http://example.com/image.jpg"
                 }
               },
-              "required": [
-                "title",
-                "author"
-              ]
+              "required": ["title", "author"]
             }
           }
         ],
@@ -193,9 +173,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "summary": "Delete a book",
         "description": "",
         "parameters": [
@@ -215,9 +193,7 @@
     },
     "/users/": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Get all users",
         "description": "",
         "responses": {
@@ -227,9 +203,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Create user",
         "description": "",
         "parameters": [
@@ -257,12 +231,7 @@
                   "example": "secret123"
                 }
               },
-              "required": [
-                "name",
-                "username",
-                "email",
-                "password"
-              ]
+              "required": ["name", "username", "email", "password"]
             }
           }
         ],
@@ -278,9 +247,7 @@
     },
     "/users/{id}": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Get user by ID",
         "description": "",
         "parameters": [
@@ -298,9 +265,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Update user",
         "description": "",
         "parameters": [
@@ -347,9 +312,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "summary": "Delete user",
         "description": "",
         "parameters": [
