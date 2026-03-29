@@ -14,6 +14,16 @@ const userSchema = new mongoose.Schema(
 
 userSchema.plugin(toJsonPlugin)
 
+// Cascade delete: Remove all readlist entries and reviews when user is deleted
+userSchema.pre('findByIdAndDelete', async function (next) {
+  const userId = this._conditions._id
+  const Readlist = mongoose.model('Readlist')
+  const Review = mongoose.model('Review')
+  await Readlist.deleteMany({ user: userId })
+  await Review.deleteMany({ user: userId })
+  next()
+})
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User

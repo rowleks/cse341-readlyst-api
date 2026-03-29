@@ -30,6 +30,26 @@ const readlistSchema = new mongoose.Schema(
 
 readlistSchema.plugin(toJsonPlugin)
 
+// Validate that user exists before saving
+readlistSchema.pre('save', async function (next) {
+  const User = mongoose.model('User')
+  const user = await User.findById(this.user)
+  if (!user) {
+    throw new Error('User does not exist')
+  }
+  next()
+})
+
+// Validate that book exists before saving
+readlistSchema.pre('save', async function (next) {
+  const Book = mongoose.model('Book')
+  const book = await Book.findById(this.book)
+  if (!book) {
+    throw new Error('Book does not exist')
+  }
+  next()
+})
+
 const Readlist = mongoose.model('Readlist', readlistSchema)
 
 module.exports = Readlist
