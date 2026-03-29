@@ -3,11 +3,14 @@ const reviewSchema = require('./schemas/reviewSchema')
 
 const Review = mongoose.models.Review || mongoose.model('Review', reviewSchema)
 
-const findAll = () => Review.find({})
-const findById = id => Review.findById(id)
-const create = reviewData => new Review(reviewData).save()
+const findAll = () => Review.find({}).populate(['user', 'book'])
+const findById = id => Review.findById(id).populate(['user', 'book'])
+const create = async reviewData =>
+  (await new Review(reviewData).save()).populate(['user', 'book'])
 const updateById = (id, reviewData) =>
-  Review.findByIdAndUpdate(id, reviewData, { returnDocument: 'after' })
+  Review.findByIdAndUpdate(id, reviewData, {
+    returnDocument: 'after',
+  }).populate(['user', 'book'])
 const deleteById = id => Review.findByIdAndDelete(id)
 const deleteMany = filter => Review.deleteMany(filter)
 
