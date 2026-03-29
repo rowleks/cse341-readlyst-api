@@ -23,14 +23,7 @@ const addBook = async (req, res) => {
   /* #swagger.parameters['body'] = {
       in: 'body',
       description: 'Book data',
-      schema: {
-        $title: 'Book Title',
-        $author: 'Author Name',
-        publishedYear: 2023,
-        genres: ['Genre'],
-        description: 'Book Description',
-        coverImageUrl: 'http://example.com/image.jpg'
-      }
+      schema: { $ref: '#/definitions/Book' }
   } */
   const savedBook = await bookService.addBook(req.body)
   res.status(201).json(savedBook)
@@ -42,14 +35,7 @@ const updateBook = async (req, res) => {
   /* #swagger.parameters['body'] = {
       in: 'body',
       description: 'Book data',
-      schema: {
-        title: 'Book Title',
-        author: 'Author Name',
-        publishedYear: 2023,
-        genres: ['Genre'],
-        description: 'Book Description',
-        coverImageUrl: 'http://example.com/image.jpg'
-      }
+      schema: { $ref: '#/definitions/UpdateBook' }
   } */
   const updatedBook = await bookService.updateBook(req.params.id, req.body)
 
