@@ -10,6 +10,7 @@ const getAllBooks = async (_, res) => {
 const getBookById = async (req, res) => {
   // #swagger.tags = ['Books']
   // #swagger.summary = 'Get book by ID'
+  /* #swagger.responses[404] = { description: 'Book not found' } */
   const book = await bookService.getBookById(req.params.id)
   if (!book) {
     return bookNotFound(res)
@@ -37,6 +38,7 @@ const updateBook = async (req, res) => {
       description: 'Book data',
       schema: { $ref: '#/definitions/UpdateBook' }
   } */
+  /* #swagger.responses[404] = { description: 'Book not found' } */
   const updatedBook = await bookService.updateBook(req.params.id, req.body)
 
   if (!updatedBook) {
@@ -48,6 +50,7 @@ const updateBook = async (req, res) => {
 const deleteBook = async (req, res) => {
   // #swagger.tags = ['Books']
   // #swagger.summary = 'Delete a book'
+  /* #swagger.responses[404] = { description: 'Book not found' } */
   const deletedBook = await bookService.deleteBook(req.params.id)
   if (!deletedBook) {
     return bookNotFound(res)

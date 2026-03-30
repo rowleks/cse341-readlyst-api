@@ -7,6 +7,11 @@ const doc = {
   },
   host: 'cse341-readlyst-api.onrender.com',
   schemes: ['https'],
+  responses: {
+    404: {
+      description: 'Unknown endpoint',
+    },
+  },
   definitions: {
     Book: {
       $title: 'Book Title',

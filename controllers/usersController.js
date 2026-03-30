@@ -10,6 +10,7 @@ const getAllUsers = async (_, res) => {
 const getUserById = async (req, res) => {
   // #swagger.tags = ['Users']
   // #swagger.summary = 'Get user by ID'
+  /* #swagger.responses[404] = { description: 'User not found' } */
   const user = await userService.getUserById(req.params.id)
   if (!user) {
     return userNotFound(res)
@@ -47,6 +48,7 @@ const updateUser = async (req, res) => {
         password: 'secret123'
       }
   } */
+  /* #swagger.responses[404] = { description: 'User not found' } */
   const updatedUser = await userService.updateUser(req.params.id, req.body)
   if (!updatedUser) {
     return userNotFound(res)
@@ -57,6 +59,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   // #swagger.tags = ['Users']
   // #swagger.summary = 'Delete user'
+  /* #swagger.responses[404] = { description: 'User not found' } */
   const deletedUser = await userService.deleteUser(req.params.id)
   if (!deletedUser) {
     return userNotFound(res)

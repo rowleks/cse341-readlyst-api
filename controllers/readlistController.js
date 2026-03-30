@@ -10,6 +10,7 @@ const getAllReadlists = async (_, res) => {
 const getReadlistById = async (req, res) => {
   // #swagger.tags = ['Readlist']
   // #swagger.summary = 'Get readlist entry by ID'
+  /* #swagger.responses[404] = { description: 'Readlist entry not found' } */
   const entry = await readlistService.getReadlistById(req.params.id)
   if (!entry) {
     return readlistNotFound(res)
@@ -37,6 +38,7 @@ const updateReadlist = async (req, res) => {
       description: 'Updated readlist data',
       schema: { $ref: '#/definitions/UpdateReadlist' }
   } */
+  /* #swagger.responses[404] = { description: 'Readlist entry not found' } */
   const updatedEntry = await readlistService.updateReadlist(
     req.params.id,
     req.body
@@ -51,6 +53,7 @@ const updateReadlist = async (req, res) => {
 const deleteReadlist = async (req, res) => {
   // #swagger.tags = ['Readlist']
   // #swagger.summary = 'Remove a book from a readlist'
+  /* #swagger.responses[404] = { description: 'Readlist entry not found' } */
   const deletedEntry = await readlistService.deleteReadlist(req.params.id)
   if (!deletedEntry) {
     return readlistNotFound(res)

@@ -10,6 +10,7 @@ const getAllReviews = async (_, res) => {
 const getReviewById = async (req, res) => {
   // #swagger.tags = ['Reviews']
   // #swagger.summary = 'Get review by ID'
+  /* #swagger.responses[404] = { description: 'Review not found' } */
   const review = await reviewService.getReviewById(req.params.id)
   if (!review) {
     return reviewNotFound(res)
@@ -37,6 +38,7 @@ const updateReview = async (req, res) => {
       description: 'Updated review data',
       schema: { $ref: '#/definitions/UpdateReview' }
   } */
+  /* #swagger.responses[404] = { description: 'Review not found' } */
   const updatedReview = await reviewService.updateReview(
     req.params.id,
     req.body
@@ -50,6 +52,7 @@ const updateReview = async (req, res) => {
 const deleteReview = async (req, res) => {
   // #swagger.tags = ['Reviews']
   // #swagger.summary = 'Delete a review'
+  /* #swagger.responses[404] = { description: 'Review not found' } */
   const deletedReview = await reviewService.deleteReview(req.params.id)
   if (!deletedReview) {
     return reviewNotFound(res)

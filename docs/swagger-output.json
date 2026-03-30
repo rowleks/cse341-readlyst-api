@@ -7,7 +7,9 @@
   },
   "host": "cse341-readlyst-api.onrender.com",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/": {
       "get": {
@@ -31,7 +33,9 @@
     },
     "/books/": {
       "get": {
-        "tags": ["Books"],
+        "tags": [
+          "Books"
+        ],
         "summary": "Get all books",
         "description": "",
         "responses": {
@@ -41,7 +45,9 @@
         }
       },
       "post": {
-        "tags": ["Books"],
+        "tags": [
+          "Books"
+        ],
         "summary": "Add a new book",
         "description": "",
         "parameters": [
@@ -63,7 +69,9 @@
     },
     "/books/{id}": {
       "get": {
-        "tags": ["Books"],
+        "tags": [
+          "Books"
+        ],
         "summary": "Get book by ID",
         "description": "",
         "parameters": [
@@ -77,11 +85,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Book not found"
           }
         }
       },
       "put": {
-        "tags": ["Books"],
+        "tags": [
+          "Books"
+        ],
         "summary": "Update a book",
         "description": "",
         "parameters": [
@@ -103,11 +116,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Book not found"
           }
         }
       },
       "delete": {
-        "tags": ["Books"],
+        "tags": [
+          "Books"
+        ],
         "summary": "Delete a book",
         "description": "",
         "parameters": [
@@ -121,13 +139,18 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "404": {
+            "description": "Book not found"
           }
         }
       }
     },
     "/users/": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Get all users",
         "description": "",
         "responses": {
@@ -137,7 +160,9 @@
         }
       },
       "post": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Create user",
         "description": "",
         "parameters": [
@@ -165,7 +190,12 @@
                   "example": "secret123"
                 }
               },
-              "required": ["name", "username", "email", "password"]
+              "required": [
+                "name",
+                "username",
+                "email",
+                "password"
+              ]
             }
           }
         ],
@@ -178,7 +208,9 @@
     },
     "/users/{id}": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Get user by ID",
         "description": "",
         "parameters": [
@@ -192,11 +224,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "User not found"
           }
         }
       },
       "put": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Update user",
         "description": "",
         "parameters": [
@@ -236,11 +273,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "User not found"
           }
         }
       },
       "delete": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Delete user",
         "description": "",
         "parameters": [
@@ -254,13 +296,18 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "404": {
+            "description": "User not found"
           }
         }
       }
     },
     "/readlist/": {
       "get": {
-        "tags": ["Readlist"],
+        "tags": [
+          "Readlist"
+        ],
         "summary": "Get all readlist entries",
         "description": "",
         "responses": {
@@ -270,7 +317,9 @@
         }
       },
       "post": {
-        "tags": ["Readlist"],
+        "tags": [
+          "Readlist"
+        ],
         "summary": "Add a book to a user\\'s readlist",
         "description": "",
         "parameters": [
@@ -292,7 +341,9 @@
     },
     "/readlist/{id}": {
       "get": {
-        "tags": ["Readlist"],
+        "tags": [
+          "Readlist"
+        ],
         "summary": "Get readlist entry by ID",
         "description": "",
         "parameters": [
@@ -306,11 +357,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Readlist entry not found"
           }
         }
       },
       "put": {
-        "tags": ["Readlist"],
+        "tags": [
+          "Readlist"
+        ],
         "summary": "Update a readlist entry",
         "description": "",
         "parameters": [
@@ -332,11 +388,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Readlist entry not found"
           }
         }
       },
       "delete": {
-        "tags": ["Readlist"],
+        "tags": [
+          "Readlist"
+        ],
         "summary": "Remove a book from a readlist",
         "description": "",
         "parameters": [
@@ -350,13 +411,18 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "404": {
+            "description": "Readlist entry not found"
           }
         }
       }
     },
     "/reviews/": {
       "get": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Get all reviews",
         "description": "",
         "responses": {
@@ -366,7 +432,9 @@
         }
       },
       "post": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Create a new review",
         "description": "",
         "parameters": [
@@ -388,7 +456,9 @@
     },
     "/reviews/{id}": {
       "get": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Get review by ID",
         "description": "",
         "parameters": [
@@ -402,11 +472,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Review not found"
           }
         }
       },
       "put": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Update a review",
         "description": "",
         "parameters": [
@@ -428,11 +503,16 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Review not found"
           }
         }
       },
       "delete": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Delete a review",
         "description": "",
         "parameters": [
@@ -446,6 +526,9 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "404": {
+            "description": "Review not found"
           }
         }
       }
@@ -469,7 +552,9 @@
         },
         "genres": {
           "type": "array",
-          "example": ["Genre"],
+          "example": [
+            "Genre"
+          ],
           "items": {
             "type": "string"
           }
@@ -483,7 +568,10 @@
           "example": "http://example.com/image.jpg"
         }
       },
-      "required": ["title", "author"]
+      "required": [
+        "title",
+        "author"
+      ]
     },
     "UpdateBook": {
       "type": "object",
@@ -502,7 +590,9 @@
         },
         "genres": {
           "type": "array",
-          "example": ["Genre"],
+          "example": [
+            "Genre"
+          ],
           "items": {
             "type": "string"
           }
@@ -537,7 +627,12 @@
           "example": "secret123"
         }
       },
-      "required": ["name", "username", "email", "password"]
+      "required": [
+        "name",
+        "username",
+        "email",
+        "password"
+      ]
     },
     "UpdateUser": {
       "type": "object",
@@ -588,7 +683,10 @@
           "example": "2023-01-01T00:00:00.000Z"
         }
       },
-      "required": ["user", "book"]
+      "required": [
+        "user",
+        "book"
+      ]
     },
     "UpdateReadlist": {
       "type": "object",
@@ -639,7 +737,11 @@
           "example": "This was an amazing read!"
         }
       },
-      "required": ["user", "book", "rating"]
+      "required": [
+        "user",
+        "book",
+        "rating"
+      ]
     },
     "UpdateReview": {
       "type": "object",
@@ -661,6 +763,11 @@
           "example": "Actually, it was a 4/5 for me."
         }
       }
+    }
+  },
+  "responses": {
+    "404": {
+      "description": "Unknown endpoint"
     }
   }
 }
