@@ -4,9 +4,12 @@ const toJsonPlugin = require('../../utils/toJsonPlugin')
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    username: { type: String, required: true, unique: true },
+    username: { type: String, unique: true },
     email: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true },
+    passwordHash: { type: String },
+    googleId: { type: String },
+    avatar: { type: String },
+    isEmailVerified: { type: Boolean, default: false },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
   },
   { timestamps: true }

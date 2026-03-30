@@ -7,6 +7,7 @@ const User = mongoose.models.User || mongoose.model('User', userSchema)
 
 const findAll = () => User.find({})
 const findById = id => User.findById(id)
+const findOne = filter => User.findOne(filter)
 const create = userData => new User(userData).save()
 const updateById = (id, userData) =>
   User.findByIdAndUpdate(id, userData, { returnDocument: 'after' })
@@ -18,6 +19,7 @@ module.exports = {
   User,
   findAll,
   findById,
+  findOne,
   create,
   updateById,
   deleteById,

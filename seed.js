@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs')
 const User = require('./model/userModel')
 const Book = require('./model/bookModel')
 const { connect } = require('./database')
@@ -8,25 +9,25 @@ const seedData = async () => {
   try {
     await connect()
 
-    // Clear existing data
     await User.deleteMany({})
     await Book.deleteMany({})
     console.log('Cleared existing data')
 
-    // Seed Users
+    const passwordHash = await bcrypt.hash('password123', 10)
+
     const users = [
       {
         name: 'Rowland Momoh',
         username: 'rowleks',
         email: 'admin@readlyst.com',
-        passwordHash: 'admin_hash_123',
+        passwordHash,
         role: 'admin',
       },
       {
         name: 'Jane Doe',
         username: 'janedoe',
         email: 'jane@example.com',
-        passwordHash: 'user_hash_456',
+        passwordHash,
         role: 'user',
       },
     ]
@@ -36,24 +37,6 @@ const seedData = async () => {
 
     // Seed Books
     const books = [
-      {
-        title: 'The Great Gatsby',
-        author: 'F. Scott Fitzgerald',
-        publishedYear: 1925,
-        genres: ['Classic', 'Fiction'],
-        description: 'A novel set in the Jazz Age on Long Island.',
-        coverImageUrl:
-          'https://i0.wp.com/americanwritersmuseum.org/wp-content/uploads/2018/02/CK-3.jpg?resize=267%2C400&ssl=1',
-      },
-      {
-        title: 'The Hobbit',
-        author: 'J.R.R. Tolkien',
-        publishedYear: 1937,
-        genres: ['Fantasy', 'Adventure'],
-        description: 'The prelude to The Lord of the Rings.',
-        coverImageUrl:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTto06ST5vShkYugiBPqD-BhbCV0kk-HGzRw&s',
-      },
       {
         title: 'The Alchemist',
         author: 'Paulo Coelho',
@@ -119,6 +102,24 @@ const seedData = async () => {
           'A dystopian social science fiction novel and cautionary tale.',
         coverImageUrl:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdHUyFdc81rHthZKgGjDUPNa-k4aRIqOMZ8w&s',
+      },
+      {
+        title: 'The Great Gatsby',
+        author: 'F. Scott Fitzgerald',
+        publishedYear: 1925,
+        genres: ['Classic', 'Fiction'],
+        description: 'A novel set in the Jazz Age on Long Island.',
+        coverImageUrl:
+          'https://i0.wp.com/americanwritersmuseum.org/wp-content/uploads/2018/02/CK-3.jpg?resize=267%2C400&ssl=1',
+      },
+      {
+        title: 'The Hobbit',
+        author: 'J.R.R. Tolkien',
+        publishedYear: 1937,
+        genres: ['Fantasy', 'Adventure'],
+        description: 'The prelude to The Lord of the Rings.',
+        coverImageUrl:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTto06ST5vShkYugiBPqD-BhbCV0kk-HGzRw&s',
       },
       {
         title: 'To Kill a Mockingbird',

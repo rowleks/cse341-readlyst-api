@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const passport = require('passport')
 const rootRouter = require('./routes')
 const { connect } = require('./database')
 const { morganMiddleware } = require('./middlewares/morganMiddleware')
@@ -7,6 +8,7 @@ const {
   unknownEndpoint,
   errorHandler,
 } = require('./middlewares/errorMiddleware')
+require('./config/passport')(passport)
 require('dotenv').config()
 
 /* eslint-disable no-console */
@@ -20,6 +22,7 @@ const port = process.env.PORT || 3030
 let server
 
 app.use(cors())
+app.use(passport.initialize())
 app.use(morganMiddleware)
 app.use(express.json())
 
