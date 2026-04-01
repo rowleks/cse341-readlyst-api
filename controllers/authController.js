@@ -91,10 +91,55 @@ const me = (req, res, next) => {
   }
 }
 
+const exchangeToken = async (req, res, next) => {
+  // #swagger.tags = ['Auth']
+  // #swagger.summary = 'Exchange Google OAuth token for JWT'
+  /* #swagger.parameters['body'] = {
+      in: 'body',
+      schema: { access_token: 'string' }
+  } */
+  /* #swagger.security = [{ bearerAuth: [] }, { oauth2: [] }] */
+  try {
+    const { access_token } = req.body
+
+    if (!access_token) {
+      return res.status(400).json({ message: 'access_token is required' })
+    }
+
+    const response = await fetch(
+      'https://www.googleapis.com/oauth2/v2/userinfo',
+      {
+        headers: { Authorization: `Bearer ${access_token}` },
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch user info from Google')
+    }
+
+    const googleUserInfo = await response.json()
+    const { id: googleId, email, name, picture } = googleUserInfo
+
+    const user = await userService.createOrUpdateGoogleUser({
+      name,
+      email,
+      googleId,
+      avatar: picture,
+    })
+
+    const token = authService.generateToken(user)
+
+    res.json({ token, user })
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
   register,
   login,
   googleAuth,
   googleCallback,
   me,
+  exchangeToken,
 }
