@@ -18,8 +18,7 @@ const doc = {
       type: 'oauth2',
       flow: 'accessCode',
       authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
-      tokenUrl:
-        'https://cse341-readlyst-api.onrender.com/api/auth/google/token',
+      tokenUrl: 'https://cse341-readlyst-api.onrender.com/auth/google/token',
       scopes: {
         openid: 'OpenID Connect ID token',
         email: 'Read email',

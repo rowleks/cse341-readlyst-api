@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('../docs/swagger-output.json')
+const swaggerUiDist = require('swagger-ui-dist')
 const { google } = require('../config/auth')
 
 router.use('/api-docs', swaggerUi.serve)
@@ -10,21 +11,22 @@ router.get(
     persistAuthorization: true,
     customSiteTitle: 'Readlyst API Docs',
     swaggerOptions: {
+      oauth2RedirectUrl: google.swaggerRedirectUrl,
       oauth: {
         clientId: google.clientID,
         usePkceWithAuthorizationCodeGrant: true,
-        redirectUrl: google.swaggerRedirectUrl,
       },
+    },
+    initOAuth: {
+      clientId: google.clientID,
+      usePkceWithAuthorizationCodeGrant: true,
+      scopes: 'openid email profile',
     },
   })
 )
+
 router.get('/api-docs/oauth2-redirect.html', (_, res) => {
-  res.sendFile(
-    require('path').join(
-      __dirname,
-      '../node_modules/swagger-ui-dist/oauth2-redirect.html'
-    )
-  )
+  res.sendFile(`${swaggerUiDist.getAbsoluteFSPath()}/oauth2-redirect.html`)
 })
 
 module.exports = router
