@@ -2,11 +2,16 @@
 
 const bookModel = require('../model/bookModel')
 
-const getAllBooks = () => bookModel.findAll()
-const getBookById = id => bookModel.findById(id)
-const createBook = bookData => bookModel.create(bookData)
-const updateBook = (id, bookData) => bookModel.updateById(id, bookData)
-const deleteBook = id => bookModel.deleteById(id)
+const getAllBooks = async () => await bookModel.findAll()
+
+const getBookById = async id => await bookModel.findById(id)
+
+const createBook = async bookData => await bookModel.create(bookData)
+
+const updateBook = async (id, bookData) =>
+  await bookModel.updateById(id, bookData)
+
+const deleteBook = async id => await bookModel.deleteById(id)
 
 module.exports = {
   getAllBooks,

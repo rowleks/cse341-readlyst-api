@@ -1,14 +1,18 @@
 const userModel = require('../model/userModel')
 const bcrypt = require('bcryptjs')
 
-const getAllUsers = () => userModel.findAll()
-const getUserById = id => userModel.findById(id)
-const getUserByEmail = email => userModel.findOne({ email })
-const getUserByGoogleId = googleId => userModel.findOne({ googleId })
+const getAllUsers = async () => await userModel.findAll()
+
+const getUserById = async id => await userModel.findById(id)
+
+const getUserByEmail = async email => await userModel.findOne({ email })
+
+const getUserByGoogleId = async googleId =>
+  await userModel.findOne({ googleId })
 
 const createUser = async ({ name, username, email, password }) => {
   const passwordHash = password ? await bcrypt.hash(password, 10) : undefined
-  return userModel.create({ name, username, email, passwordHash })
+  return await userModel.create({ name, username, email, passwordHash })
 }
 
 const createOrUpdateGoogleUser = async ({ name, email, googleId, avatar }) => {
@@ -17,14 +21,14 @@ const createOrUpdateGoogleUser = async ({ name, email, googleId, avatar }) => {
 
   user = await getUserByEmail(email)
   if (user) {
-    return userModel.updateById(user._id, {
+    return await userModel.updateById(user._id, {
       googleId,
       avatar,
       isEmailVerified: true,
     })
   }
 
-  return userModel.create({
+  return await userModel.create({
     name,
     email,
     googleId,
@@ -44,10 +48,10 @@ const updateUser = async (id, { name, username, email, password }) => {
   if (password) {
     updateData.passwordHash = await bcrypt.hash(password, 10)
   }
-  return userModel.updateById(id, updateData)
+  return await userModel.updateById(id, updateData)
 }
 
-const deleteUser = id => userModel.deleteById(id)
+const deleteUser = async id => await userModel.deleteById(id)
 
 module.exports = {
   getAllUsers,

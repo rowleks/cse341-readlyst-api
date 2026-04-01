@@ -26,7 +26,7 @@ const addBook = async (req, res) => {
       description: 'Book data',
       schema: { $ref: '#/definitions/Book' }
   } */
-  const savedBook = await bookService.addBook(req.body)
+  const savedBook = await bookService.createBook(req.body)
   res.status(201).json(savedBook)
 }
 

@@ -1,15 +1,16 @@
 const readlistModel = require('../model/readlistModel')
 
-const getAllReadlists = () => readlistModel.findAll()
+const getAllReadlists = async () => await readlistModel.findAll()
 
-const getReadlistById = id => readlistModel.findById(id)
+const getReadlistById = async id => await readlistModel.findById(id)
 
-const addReadlist = readlistData => readlistModel.create(readlistData)
+const addReadlist = async readlistData =>
+  await readlistModel.create(readlistData)
 
-const updateReadlist = (id, readlistData) =>
-  readlistModel.updateById(id, readlistData)
+const updateReadlist = async (id, readlistData) =>
+  await readlistModel.updateById(id, readlistData)
 
-const deleteReadlist = id => readlistModel.deleteById(id)
+const deleteReadlist = async id => await readlistModel.deleteById(id)
 
 module.exports = {
   getAllReadlists,

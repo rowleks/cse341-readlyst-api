@@ -5,14 +5,14 @@ require('./reviewModel')
 
 const Book = mongoose.models.Book || mongoose.model('Book', bookSchema)
 
-const findAll = () => Book.find({})
-const findById = id => Book.findById(id)
-const create = bookData => new Book(bookData).save()
-const updateById = (id, bookData) =>
-  Book.findByIdAndUpdate(id, bookData, { returnDocument: 'after' })
-const deleteById = id => Book.findByIdAndDelete(id)
-const deleteMany = filter => Book.deleteMany(filter)
-const insertMany = books => Book.insertMany(books)
+const findAll = async () => await Book.find({})
+const findById = async id => await Book.findById(id)
+const create = async bookData => await new Book(bookData).save()
+const updateById = async (id, bookData) =>
+  await Book.findByIdAndUpdate(id, bookData, { returnDocument: 'after' })
+const deleteById = async id => await Book.findByIdAndDelete(id)
+const deleteMany = async filter => await Book.deleteMany(filter)
+const insertMany = async books => await Book.insertMany(books)
 
 module.exports = {
   Book,

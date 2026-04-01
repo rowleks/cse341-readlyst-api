@@ -2,27 +2,23 @@ const passport = require('passport')
 const userService = require('../services/userService')
 const authService = require('../services/authService')
 
-const register = async (req, res, next) => {
-  try {
-    const { name, username, email, password } = req.body
+const register = async (req, res) => {
+  const { name, username, email, password } = req.body
 
-    const existingUser = await userService.getUserByEmail(email)
-    if (existingUser) {
-      return res.status(400).json({ message: 'Email already registered' })
-    }
-
-    const user = await userService.createUser({
-      name,
-      username,
-      email,
-      password,
-    })
-    const token = authService.generateToken(user)
-
-    res.status(201).json({ user, token })
-  } catch (err) {
-    next(err)
+  const existingUser = await userService.getUserByEmail(email)
+  if (existingUser) {
+    return res.status(400).json({ message: 'Email already registered' })
   }
+
+  const user = await userService.createUser({
+    name,
+    username,
+    email,
+    password,
+  })
+  const token = authService.generateToken(user)
+
+  res.status(201).json({ user, token })
 }
 
 const login = (req, res, next) => {

@@ -5,15 +5,15 @@ require('./reviewModel')
 
 const User = mongoose.models.User || mongoose.model('User', userSchema)
 
-const findAll = () => User.find({})
-const findById = id => User.findById(id)
-const findOne = filter => User.findOne(filter)
-const create = userData => new User(userData).save()
-const updateById = (id, userData) =>
-  User.findByIdAndUpdate(id, userData, { returnDocument: 'after' })
-const deleteById = id => User.findByIdAndDelete(id)
-const deleteMany = filter => User.deleteMany(filter)
-const insertMany = users => User.insertMany(users)
+const findAll = async () => await User.find({})
+const findById = async id => await User.findById(id)
+const findOne = async filter => await User.findOne(filter)
+const create = async userData => await new User(userData).save()
+const updateById = async (id, userData) =>
+  await User.findByIdAndUpdate(id, userData, { returnDocument: 'after' })
+const deleteById = async id => await User.findByIdAndDelete(id)
+const deleteMany = async filter => await User.deleteMany(filter)
+const insertMany = async users => await User.insertMany(users)
 
 module.exports = {
   User,
