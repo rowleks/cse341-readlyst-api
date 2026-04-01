@@ -25,6 +25,7 @@ app.use(cors())
 app.use(passport.initialize())
 app.use(morganMiddleware)
 app.use(express.json())
+app.use(express.urlencoded())
 
 app.use('/', rootRouter)
 
