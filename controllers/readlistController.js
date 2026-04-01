@@ -1,24 +1,32 @@
 const readlistService = require('../services/readlistService')
 
-const getAllReadlists = async (_, res) => {
+const getAllReadlists = async (_, res, next) => {
   // #swagger.tags = ['Readlist']
   // #swagger.summary = 'Get all readlist entries'
-  const entries = await readlistService.getAllReadlists()
-  res.json(entries)
+  try {
+    const entries = await readlistService.getAllReadlists()
+    res.json(entries)
+  } catch (err) {
+    next(err)
+  }
 }
 
-const getReadlistById = async (req, res) => {
+const getReadlistById = async (req, res, next) => {
   // #swagger.tags = ['Readlist']
   // #swagger.summary = 'Get readlist entry by ID'
   /* #swagger.responses[404] = { description: 'Readlist entry not found' } */
-  const entry = await readlistService.getReadlistById(req.params.id)
-  if (!entry) {
-    return readlistNotFound(res)
+  try {
+    const entry = await readlistService.getReadlistById(req.params.id)
+    if (!entry) {
+      return readlistNotFound(res)
+    }
+    res.json(entry)
+  } catch (err) {
+    next(err)
   }
-  res.json(entry)
 }
 
-const addReadlist = async (req, res) => {
+const addReadlist = async (req, res, next) => {
   // #swagger.tags = ['Readlist']
   // #swagger.summary = 'Add a book to a user\'s readlist'
   /* #swagger.parameters['body'] = {
@@ -26,11 +34,15 @@ const addReadlist = async (req, res) => {
       description: 'Readlist entry data',
       schema: { $ref: '#/definitions/Readlist' }
   } */
-  const savedEntry = await readlistService.addReadlist(req.body)
-  res.status(201).json(savedEntry)
+  try {
+    const savedEntry = await readlistService.addReadlist(req.body)
+    res.status(201).json(savedEntry)
+  } catch (err) {
+    next(err)
+  }
 }
 
-const updateReadlist = async (req, res) => {
+const updateReadlist = async (req, res, next) => {
   // #swagger.tags = ['Readlist']
   // #swagger.summary = 'Update a readlist entry'
   /* #swagger.parameters['body'] = {
@@ -39,26 +51,34 @@ const updateReadlist = async (req, res) => {
       schema: { $ref: '#/definitions/UpdateReadlist' }
   } */
   /* #swagger.responses[404] = { description: 'Readlist entry not found' } */
-  const updatedEntry = await readlistService.updateReadlist(
-    req.params.id,
-    req.body
-  )
+  try {
+    const updatedEntry = await readlistService.updateReadlist(
+      req.params.id,
+      req.body
+    )
 
-  if (!updatedEntry) {
-    return readlistNotFound(res)
+    if (!updatedEntry) {
+      return readlistNotFound(res)
+    }
+    res.json(updatedEntry)
+  } catch (err) {
+    next(err)
   }
-  res.json(updatedEntry)
 }
 
-const deleteReadlist = async (req, res) => {
+const deleteReadlist = async (req, res, next) => {
   // #swagger.tags = ['Readlist']
   // #swagger.summary = 'Remove a book from a readlist'
   /* #swagger.responses[404] = { description: 'Readlist entry not found' } */
-  const deletedEntry = await readlistService.deleteReadlist(req.params.id)
-  if (!deletedEntry) {
-    return readlistNotFound(res)
+  try {
+    const deletedEntry = await readlistService.deleteReadlist(req.params.id)
+    if (!deletedEntry) {
+      return readlistNotFound(res)
+    }
+    res.status(204).end()
+  } catch (err) {
+    next(err)
   }
-  res.status(204).end()
 }
 
 const readlistNotFound = res =>
