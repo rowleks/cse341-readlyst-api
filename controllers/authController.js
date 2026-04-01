@@ -106,6 +106,7 @@ const exchangeToken = async (req, res, next) => {
       $redirect_uri: 'string'
     }
 } */
+
   try {
     const { code, redirect_uri, code_verifier } = req.body
 
