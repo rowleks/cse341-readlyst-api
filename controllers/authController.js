@@ -107,14 +107,15 @@ const exchangeToken = async (req, res, next) => {
     }
 } */
   try {
-    const { code, redirect_uri } = req.body
+    const { code, redirect_uri, code_verifier } = req.body
 
     const { data } = await axios.post('https://oauth2.googleapis.com/token', {
       code,
       redirect_uri,
+      code_verifier, // ← Swagger UI sends this, you need to forward it
       client_id: google.clientID,
-      client_secret: google.clientSecret,
       grant_type: 'authorization_code',
+      // client_secret not needed when using PKCE
     })
 
     const { data: googleUser } = await axios.get(
