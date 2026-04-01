@@ -1,7 +1,7 @@
-require('dotenv').config()
 const router = require('express').Router()
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('../docs/swagger-output.json')
+const { google } = require('../config/auth')
 
 router.use('/api-docs', swaggerUi.serve)
 router.get(
@@ -11,10 +11,10 @@ router.get(
     customSiteTitle: 'Readlyst API Docs',
     swaggerOptions: {
       oauth: {
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        clientId: google.clientID,
+        clientSecret: google.clientSecret,
         usePkceWithAuthorizationCodeGrant: true,
-        redirectUrl: process.env.SWAGGER_OAUTH_REDIRECT_URL,
+        redirectUrl: google.swaggerRedirectUrl,
       },
     },
   })
