@@ -19,5 +19,13 @@ router.get(
     },
   })
 )
+router.get('/api-docs/oauth2-redirect.html', (_, res) => {
+  res.sendFile(
+    require('path').join(
+      __dirname,
+      '../node_modules/swagger-ui-dist/oauth2-redirect.html'
+    )
+  )
+})
 
 module.exports = router
