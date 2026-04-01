@@ -47,7 +47,7 @@ const googleAuth = passport.authenticate('google', {
 const googleCallback = (req, res, next) => {
   passport.authenticate('google', { session: false }, (err, user) => {
     if (err || !user) {
-      res.status(401).json({ message: 'Google auth failed' })
+      return res.status(401).json({ message: 'Google auth failed' })
     }
     const token = authService.generateToken(user)
 

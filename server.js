@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const passport = require('passport')
@@ -9,7 +10,6 @@ const {
   errorHandler,
 } = require('./middlewares/errorMiddleware')
 require('./config/passport')(passport)
-require('dotenv').config()
 
 /* eslint-disable no-console */
 process.on('uncaughtException', err => {
@@ -40,7 +40,7 @@ const initServer = async () => {
 
 process.on('unhandledRejection', err => {
   console.error('UNHANDLED REJECTION:', err)
-  if (server) server.close(() => process.exit(1))
+  if (server && server.listening) server.close(() => process.exit(1))
   else process.exit(1)
 })
 
