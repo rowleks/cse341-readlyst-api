@@ -47,6 +47,9 @@ importers:
       passport-local:
         specifier: ^1.0.0
         version: 1.0.0
+      swagger-ui-dist:
+        specifier: ^5.32.1
+        version: 5.32.1
       swagger-ui-express:
         specifier: ^5.0.1
         version: 5.0.1(express@5.2.1)
