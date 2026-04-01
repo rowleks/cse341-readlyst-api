@@ -12,9 +12,9 @@ const { authenticate } = require('../middlewares/auth')
 
 router.post('/register', register)
 router.post('/login', login)
-router.post('/exchange-token', exchangeToken)
 router.get('/google', googleAuth)
 router.get('/google/callback', googleCallback)
+router.post('/google/token', exchangeToken)
 router.get('/me', authenticate, me)
 
 module.exports = router

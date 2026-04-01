@@ -12,7 +12,6 @@ router.get(
     swaggerOptions: {
       oauth: {
         clientId: google.clientID,
-        clientSecret: google.clientSecret,
         usePkceWithAuthorizationCodeGrant: true,
         redirectUrl: google.swaggerRedirectUrl,
       },

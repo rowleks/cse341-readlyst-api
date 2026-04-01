@@ -1,6 +1,8 @@
 const passport = require('passport')
 const userService = require('../services/userService')
 const authService = require('../services/authService')
+const axios = require('axios')
+const { google } = require('../config/auth')
 
 const register = async (req, res, next) => {
   // #swagger.tags = ['Auth']
@@ -35,6 +37,7 @@ const register = async (req, res, next) => {
 const login = (req, res, next) => {
   // #swagger.tags = ['Auth']
   // #swagger.summary = 'Login with email and password'
+  // #swagger.security = []
   /* #swagger.parameters['body'] = {
       in: 'body',
       description: 'Login credentials',
@@ -42,6 +45,7 @@ const login = (req, res, next) => {
         $email: 'john@example.com',
         $password: 'secret123'
       }
+    
   } */
   passport.authenticate('local', { session: false }, (err, user, info) => {
     if (err) {
@@ -95,30 +99,29 @@ const exchangeToken = async (req, res, next) => {
   // #swagger.tags = ['Auth']
   // #swagger.summary = 'Exchange Google OAuth token for JWT'
   /* #swagger.parameters['body'] = {
-      in: 'body',
-      schema: { access_token: 'string' }
-  } */
-  /* #swagger.security = [{ bearerAuth: [] }, { oauth2: [] }] */
+    in: 'body',
+    required: true,
+    schema: {
+      $code: 'string',
+      $redirect_uri: 'string'
+    }
+} */
   try {
-    const { access_token } = req.body
+    const { code, redirect_uri } = req.body
 
-    if (!access_token) {
-      return res.status(400).json({ message: 'access_token is required' })
-    }
+    const { data } = await axios.post('https://oauth2.googleapis.com/token', {
+      code,
+      redirect_uri,
+      client_id: google.clientID,
+      client_secret: google.clientSecret,
+      grant_type: 'authorization_code',
+    })
 
-    const response = await fetch(
+    const { data: googleUser } = await axios.get(
       'https://www.googleapis.com/oauth2/v2/userinfo',
-      {
-        headers: { Authorization: `Bearer ${access_token}` },
-      }
+      { headers: { Authorization: `Bearer ${data.access_token}` } }
     )
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch user info from Google')
-    }
-
-    const googleUserInfo = await response.json()
-    const { id: googleId, email, name, picture } = googleUserInfo
+    const { id: googleId, email, name, picture } = googleUser
 
     const user = await userService.createOrUpdateGoogleUser({
       name,
@@ -129,7 +132,11 @@ const exchangeToken = async (req, res, next) => {
 
     const token = authService.generateToken(user)
 
-    res.json({ token, user })
+    // Swagger UI expects this exact shape
+    res.json({
+      access_token: token,
+      token_type: 'Bearer',
+    })
   } catch (err) {
     next(err)
   }
