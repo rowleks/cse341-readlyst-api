@@ -58,463 +58,6 @@
         }
       }
     },
-    "/books/": {
-      "get": {
-        "tags": ["Books"],
-        "summary": "Get all books",
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": ["Books"],
-        "summary": "Add a new book",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Book data",
-            "schema": {
-              "$ref": "#/definitions/Book"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      }
-    },
-    "/books/{id}": {
-      "get": {
-        "tags": ["Books"],
-        "summary": "Get book by ID",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Book not found"
-          }
-        }
-      },
-      "put": {
-        "tags": ["Books"],
-        "summary": "Update a book",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Book data",
-            "schema": {
-              "$ref": "#/definitions/UpdateBook"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Book not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Books"],
-        "summary": "Delete a book",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Book not found"
-          }
-        }
-      }
-    },
-    "/users/": {
-      "get": {
-        "tags": ["Users"],
-        "summary": "Get all users",
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": ["Users"],
-        "summary": "Create user",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "User data",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "John Doe"
-                },
-                "username": {
-                  "type": "string",
-                  "example": "johndoe"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "john@example.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "secret123"
-                }
-              },
-              "required": ["name", "username", "email", "password"]
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      }
-    },
-    "/users/{id}": {
-      "get": {
-        "tags": ["Users"],
-        "summary": "Get user by ID",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      },
-      "put": {
-        "tags": ["Users"],
-        "summary": "Update user",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "User data",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "John Doe"
-                },
-                "username": {
-                  "type": "string",
-                  "example": "johndoe"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "john@example.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "secret123"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Users"],
-        "summary": "Delete user",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      }
-    },
-    "/readlist/": {
-      "get": {
-        "tags": ["Readlist"],
-        "summary": "Get all readlist entries",
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": ["Readlist"],
-        "summary": "Add a book to a user\\'s readlist",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Readlist entry data",
-            "schema": {
-              "$ref": "#/definitions/Readlist"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      }
-    },
-    "/readlist/{id}": {
-      "get": {
-        "tags": ["Readlist"],
-        "summary": "Get readlist entry by ID",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Readlist entry not found"
-          }
-        }
-      },
-      "put": {
-        "tags": ["Readlist"],
-        "summary": "Update a readlist entry",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Updated readlist data",
-            "schema": {
-              "$ref": "#/definitions/UpdateReadlist"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Readlist entry not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Readlist"],
-        "summary": "Remove a book from a readlist",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Readlist entry not found"
-          }
-        }
-      }
-    },
-    "/reviews/": {
-      "get": {
-        "tags": ["Reviews"],
-        "summary": "Get all reviews",
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": ["Reviews"],
-        "summary": "Create a new review",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Review data",
-            "schema": {
-              "$ref": "#/definitions/Review"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      }
-    },
-    "/reviews/{id}": {
-      "get": {
-        "tags": ["Reviews"],
-        "summary": "Get review by ID",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Review not found"
-          }
-        }
-      },
-      "put": {
-        "tags": ["Reviews"],
-        "summary": "Update a review",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Updated review data",
-            "schema": {
-              "$ref": "#/definitions/UpdateReview"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Review not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Reviews"],
-        "summary": "Delete a review",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Review not found"
-          }
-        }
-      }
-    },
     "/auth/register": {
       "post": {
         "tags": ["Auth"],
@@ -607,8 +150,8 @@
     "/auth/google/token": {
       "post": {
         "tags": ["Auth"],
-        "summary": "Exchange Google OAuth token for JWT",
-        "description": "",
+        "summary": "Exchange Google OAuth authorization code for JWT",
+        "description": "Exchange Google OAuth code for a JWT token",
         "parameters": [
           {
             "name": "body",
@@ -619,20 +162,76 @@
               "properties": {
                 "code": {
                   "type": "string",
-                  "example": "string"
+                  "example": "Google authorization code"
                 },
                 "redirect_uri": {
                   "type": "string",
-                  "example": "string"
+                  "example": "Redirect URI used in Google OAuth flow"
+                },
+                "code_verifier": {
+                  "type": "string",
+                  "example": "PKCE code verifier (optional)"
+                },
+                "grant_type": {
+                  "type": "string",
+                  "example": "authorization_code"
                 }
               },
-              "required": ["code", "redirect_uri"]
+              "required": [
+                "code",
+                "redirect_uri",
+                "code_verifier",
+                "grant_type"
+              ]
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Returns JWT access token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "object"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        },
+                        "example": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIs..."
+                        }
+                      }
+                    },
+                    "token_type": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        },
+                        "example": {
+                          "type": "string",
+                          "example": "Bearer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -648,6 +247,448 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/books/": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get all books",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "summary": "Add a new book",
+        "description": "Admin only",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Book data",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get book by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Books"],
+        "summary": "Update a book",
+        "description": "Admin only",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Book data",
+            "schema": {
+              "$ref": "#/definitions/UpdateBook"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Books"],
+        "summary": "Delete a book",
+        "description": "Admin only",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/readlist/": {
+      "get": {
+        "tags": ["Readlist"],
+        "summary": "Get all readlist entries",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Readlist"],
+        "summary": "Add a book to a user\\'s readlist",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Readlist entry data",
+            "schema": {
+              "$ref": "#/definitions/Readlist"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/readlist/{id}": {
+      "get": {
+        "tags": ["Readlist"],
+        "summary": "Get readlist entry by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Readlist"],
+        "summary": "Update a readlist entry",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated readlist data",
+            "schema": {
+              "$ref": "#/definitions/UpdateReadlist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Readlist"],
+        "summary": "Remove a book from a readlist",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/reviews/": {
+      "get": {
+        "tags": ["Reviews"],
+        "summary": "Get all reviews",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Reviews"],
+        "summary": "Create a new review",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Review data",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/reviews/{id}": {
+      "get": {
+        "tags": ["Reviews"],
+        "summary": "Get review by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Reviews"],
+        "summary": "Update a review",
+        "description": "User can only update their own review unless admin",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated review data",
+            "schema": {
+              "$ref": "#/definitions/UpdateReview"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Reviews"],
+        "summary": "Delete a review",
+        "description": "User can only delete their own review unless admin",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "description": "Admin only",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by ID",
+        "description": "Admin only",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update user",
+        "description": "User can only update their own profile unless admin",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User data",
+            "schema": {
+              "$ref": "#/definitions/UpdateUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete user",
+        "description": "User can only delete their own account unless admin",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
@@ -872,10 +913,5 @@
     {
       "oauth2": ["openid", "email", "profile"]
     }
-  ],
-  "responses": {
-    "404": {
-      "description": "Unknown endpoint"
-    }
-  }
+  ]
 }

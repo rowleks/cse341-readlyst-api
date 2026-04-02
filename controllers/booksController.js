@@ -14,7 +14,6 @@ const getAllBooks = async (_, res, next) => {
 const getBookById = async (req, res, next) => {
   // #swagger.tags = ['Books']
   // #swagger.summary = 'Get book by ID'
-  /* #swagger.responses[404] = { description: 'Book not found' } */
   try {
     const book = await bookService.getBookById(req.params.id)
     if (!book) {
@@ -29,6 +28,7 @@ const getBookById = async (req, res, next) => {
 const addBook = async (req, res, next) => {
   // #swagger.tags = ['Books']
   // #swagger.summary = 'Add a new book'
+  // #swagger.description = 'Admin only'
   /* #swagger.parameters['body'] = {
       in: 'body',
       description: 'Book data',
@@ -45,12 +45,12 @@ const addBook = async (req, res, next) => {
 const updateBook = async (req, res, next) => {
   // #swagger.tags = ['Books']
   // #swagger.summary = 'Update a book'
+  // #swagger.description = 'Admin only'
   /* #swagger.parameters['body'] = {
       in: 'body',
       description: 'Book data',
       schema: { $ref: '#/definitions/UpdateBook' }
   } */
-  /* #swagger.responses[404] = { description: 'Book not found' } */
   try {
     const updatedBook = await bookService.updateBook(req.params.id, req.body)
 
@@ -66,7 +66,7 @@ const updateBook = async (req, res, next) => {
 const deleteBook = async (req, res, next) => {
   // #swagger.tags = ['Books']
   // #swagger.summary = 'Delete a book'
-  /* #swagger.responses[404] = { description: 'Book not found' } */
+  // #swagger.description = 'Admin only'
   try {
     const deletedBook = await bookService.deleteBook(req.params.id)
     if (!deletedBook) {

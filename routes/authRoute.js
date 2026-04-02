@@ -9,8 +9,9 @@ const {
   exchangeToken,
 } = require('../controllers/authController')
 const { authenticate } = require('../middlewares/auth')
+const { validateCreateUser } = require('../middlewares/userValidator')
 
-router.post('/register', register)
+router.post('/register', validateCreateUser, register)
 router.post('/login', login)
 router.get('/google', googleAuth)
 router.get('/google/callback', googleCallback)

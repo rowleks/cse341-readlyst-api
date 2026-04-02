@@ -27,11 +27,6 @@ const doc = {
     },
   },
   security: [{ bearerAuth: [] }, { oauth2: ['openid', 'email', 'profile'] }],
-  responses: {
-    404: {
-      description: 'Unknown endpoint',
-    },
-  },
   definitions: {
     Book: {
       $title: 'Book Title',

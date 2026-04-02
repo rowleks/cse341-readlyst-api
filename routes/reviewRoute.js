@@ -10,11 +10,12 @@ const {
   validateCreateReview,
   validateUpdateReview,
 } = require('../middlewares/reviewValidator')
+const { authenticate } = require('../middlewares/auth')
 
 router.get('/', getAllReviews)
 router.get('/:id', getReviewById)
-router.post('/', validateCreateReview, addReview)
-router.put('/:id', validateUpdateReview, updateReview)
-router.delete('/:id', deleteReview)
+router.post('/', authenticate, validateCreateReview, addReview)
+router.put('/:id', authenticate, validateUpdateReview, updateReview)
+router.delete('/:id', authenticate, deleteReview)
 
 module.exports = router

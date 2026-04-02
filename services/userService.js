@@ -43,7 +43,18 @@ const validatePassword = (user, password) => {
   return bcrypt.compareSync(password, user.passwordHash)
 }
 
-const updateUser = async (id, { name, username, email, password }) => {
+const updateUser = async (
+  id,
+  { name, username, email, password },
+  userId,
+  isAdmin
+) => {
+  if (id !== userId && !isAdmin) {
+    const error = new Error('Forbidden: You can only update your own profile')
+    error.status = 403
+    throw error
+  }
+
   const updateData = { name, username, email }
   if (password) {
     updateData.passwordHash = await bcrypt.hash(password, 10)
@@ -51,7 +62,14 @@ const updateUser = async (id, { name, username, email, password }) => {
   return await userModel.updateById(id, updateData)
 }
 
-const deleteUser = async id => await userModel.deleteById(id)
+const deleteUser = async (id, userId, isAdmin) => {
+  if (id !== userId && !isAdmin) {
+    const error = new Error('Forbidden: You can only delete your own account')
+    error.status = 403
+    throw error
+  }
+  return await userModel.deleteById(id)
+}
 
 module.exports = {
   getAllUsers,

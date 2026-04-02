@@ -97,15 +97,28 @@ const me = (req, res, next) => {
 
 const exchangeToken = async (req, res, next) => {
   // #swagger.tags = ['Auth']
-  // #swagger.summary = 'Exchange Google OAuth token for JWT'
+  // #swagger.summary = 'Exchange Google OAuth authorization code for JWT'
+  // #swagger.description = 'Exchange Google OAuth code for a JWT token'
   /* #swagger.parameters['body'] = {
     in: 'body',
     required: true,
     schema: {
-      $code: 'string',
-      $redirect_uri: 'string'
+      $code: 'Google authorization code',
+      $redirect_uri: 'Redirect URI used in Google OAuth flow',
+      $code_verifier: 'PKCE code verifier (optional)',
+      $grant_type: 'authorization_code'
     }
-} */
+  } */
+  /* #swagger.responses[200] = {
+    description: 'Returns JWT access token',
+    schema: {
+      type: 'object',
+      properties: {
+        access_token: { type: 'string', example: 'eyJhbGciOiJIUzI1NiIs...' },
+        token_type: { type: 'string', example: 'Bearer' }
+      }
+    }
+  } */
 
   try {
     const { code, redirect_uri, code_verifier, grant_type } = req.body
@@ -140,7 +153,6 @@ const exchangeToken = async (req, res, next) => {
       token_type: 'Bearer',
     })
   } catch (err) {
-    console.error('Google error:', err.response?.data || err.message)
     next(err)
   }
 }

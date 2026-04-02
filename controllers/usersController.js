@@ -3,6 +3,7 @@ const userService = require('../services/userService')
 const getAllUsers = async (_, res, next) => {
   // #swagger.tags = ['Users']
   // #swagger.summary = 'Get all users'
+  // #swagger.description = 'Admin only'
   try {
     const users = await userService.getAllUsers()
     res.json(users)
@@ -14,7 +15,7 @@ const getAllUsers = async (_, res, next) => {
 const getUserById = async (req, res, next) => {
   // #swagger.tags = ['Users']
   // #swagger.summary = 'Get user by ID'
-  /* #swagger.responses[404] = { description: 'User not found' } */
+  // #swagger.description = 'Admin only'
   try {
     const user = await userService.getUserById(req.params.id)
     if (!user) {
@@ -26,48 +27,32 @@ const getUserById = async (req, res, next) => {
   }
 }
 
-const createUser = async (req, res, next) => {
-  // #swagger.tags = ['Users']
-  // #swagger.summary = 'Create user'
-  /* #swagger.parameters['body'] = {
-      in: 'body',
-      description: 'User data',
-      schema: {
-        $name: 'John Doe',
-        $username: 'johndoe',
-        $email: 'john@example.com',
-        $password: 'secret123'
-      }
-  } */
-  try {
-    const savedUser = await userService.createUser(req.body)
-    res.status(201).json(savedUser)
-  } catch (err) {
-    next(err)
-  }
-}
-
 const updateUser = async (req, res, next) => {
   // #swagger.tags = ['Users']
   // #swagger.summary = 'Update user'
+  // #swagger.description = 'User can only update their own profile unless admin'
   /* #swagger.parameters['body'] = {
       in: 'body',
       description: 'User data',
-      schema: {
-        name: 'John Doe',
-        username: 'johndoe',
-        email: 'john@example.com',
-        password: 'secret123'
-      }
+      schema: { $ref: '#/definitions/UpdateUser' }
   } */
-  /* #swagger.responses[404] = { description: 'User not found' } */
   try {
-    const updatedUser = await userService.updateUser(req.params.id, req.body)
+    const userId = req.user._id || req.user.id
+    const isAdmin = req.user.role === 'admin'
+    const updatedUser = await userService.updateUser(
+      req.params.id,
+      req.body,
+      userId,
+      isAdmin
+    )
     if (!updatedUser) {
       return userNotFound(res)
     }
     res.json(updatedUser)
   } catch (err) {
+    if (err.status === 403) {
+      return res.status(403).json({ message: err.message })
+    }
     next(err)
   }
 }
@@ -75,14 +60,23 @@ const updateUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   // #swagger.tags = ['Users']
   // #swagger.summary = 'Delete user'
-  /* #swagger.responses[404] = { description: 'User not found' } */
+  // #swagger.description = 'User can only delete their own account unless admin'
   try {
-    const deletedUser = await userService.deleteUser(req.params.id)
+    const userId = req.user._id || req.user.id
+    const isAdmin = req.user.role === 'admin'
+    const deletedUser = await userService.deleteUser(
+      req.params.id,
+      userId,
+      isAdmin
+    )
     if (!deletedUser) {
       return userNotFound(res)
     }
     res.status(204).end()
   } catch (err) {
+    if (err.status === 403) {
+      return res.status(403).json({ message: err.message })
+    }
     next(err)
   }
 }
@@ -92,7 +86,6 @@ const userNotFound = res => res.status(404).json({ error: 'User not found' })
 module.exports = {
   getAllUsers,
   getUserById,
-  createUser,
   updateUser,
   deleteUser,
 }

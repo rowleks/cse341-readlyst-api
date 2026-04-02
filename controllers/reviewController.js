@@ -14,7 +14,6 @@ const getAllReviews = async (_, res, next) => {
 const getReviewById = async (req, res, next) => {
   // #swagger.tags = ['Reviews']
   // #swagger.summary = 'Get review by ID'
-  /* #swagger.responses[404] = { description: 'Review not found' } */
   try {
     const review = await reviewService.getReviewById(req.params.id)
     if (!review) {
@@ -35,7 +34,8 @@ const addReview = async (req, res, next) => {
       schema: { $ref: '#/definitions/Review' }
   } */
   try {
-    const savedReview = await reviewService.addReview(req.body)
+    const userId = req.user._id || req.user.id
+    const savedReview = await reviewService.addReview(req.body, userId)
     res.status(201).json(savedReview)
   } catch (err) {
     next(err)
@@ -45,22 +45,29 @@ const addReview = async (req, res, next) => {
 const updateReview = async (req, res, next) => {
   // #swagger.tags = ['Reviews']
   // #swagger.summary = 'Update a review'
+  // #swagger.description = 'User can only update their own review unless admin'
   /* #swagger.parameters['body'] = {
       in: 'body',
       description: 'Updated review data',
       schema: { $ref: '#/definitions/UpdateReview' }
   } */
-  /* #swagger.responses[404] = { description: 'Review not found' } */
   try {
+    const userId = req.user.id || req.user._id
+    const isAdmin = req.user.role === 'admin'
     const updatedReview = await reviewService.updateReview(
       req.params.id,
-      req.body
+      req.body,
+      userId,
+      isAdmin
     )
     if (!updatedReview) {
       return reviewNotFound(res)
     }
     res.json(updatedReview)
   } catch (err) {
+    if (err.status === 403) {
+      return res.status(403).json({ message: err.message })
+    }
     next(err)
   }
 }
@@ -68,14 +75,23 @@ const updateReview = async (req, res, next) => {
 const deleteReview = async (req, res, next) => {
   // #swagger.tags = ['Reviews']
   // #swagger.summary = 'Delete a review'
-  /* #swagger.responses[404] = { description: 'Review not found' } */
+  // #swagger.description = 'User can only delete their own review unless admin'
   try {
-    const deletedReview = await reviewService.deleteReview(req.params.id)
+    const userId = req.user.id || req.user._id
+    const isAdmin = req.user.role === 'admin'
+    const deletedReview = await reviewService.deleteReview(
+      req.params.id,
+      userId,
+      isAdmin
+    )
     if (!deletedReview) {
       return reviewNotFound(res)
     }
     res.status(204).end()
   } catch (err) {
+    if (err.status === 403) {
+      return res.status(403).json({ message: err.message })
+    }
     next(err)
   }
 }
