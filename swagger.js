@@ -9,10 +9,10 @@ const doc = {
   schemes: ['https'],
   securityDefinitions: {
     bearerAuth: {
-      type: 'apiKey',
-      name: 'Authorization',
-      in: 'header',
-      description: 'JWT bearer token',
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      description: 'JWT Bearer token',
     },
     oauth2: {
       type: 'oauth2',
